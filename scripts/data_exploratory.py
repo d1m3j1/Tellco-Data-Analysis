@@ -1,4 +1,3 @@
-
 import numpy as np
 import pandas as pd 
 import os, sys
@@ -20,7 +19,7 @@ class Data_Preprocessing(self):
 
     def show_stats_info(self) -> pd.DataFrame:
         return self.df.agg(['mean'])
-
+    
     def show_correlation(self) -> pd.DataFrame:
         return self.df.corr()
     
@@ -70,7 +69,7 @@ class Data_Preprocessing(self):
         missing_count = self.df.isna().sum()
         total_cell = np.product(self.df.shape)
         total_missing = missing_count.sum()
-        print(f'The dataset has {round(((total_missing / total_cell) * 100 ), 2)}% of missing values')
+        print(f'The dataset contains {round(((total_missing / total_cell) * 100 ), 2)}% of missing values')
 
     def percentage_missing_rows(self) -> pd.DataFrame:
         missing_rows = sum([True for idx, rows in self.df.iterrows() if any(rows.isna())])
@@ -90,6 +89,25 @@ class Data_Preprocessing(self):
 
         self.df = self.df.dropna(subset=columns_subset)
         return self.df         
+    def missing_values_table(df):
+        mis_val = df.isnull().sum()  # Total missing values
+        mis_val_percent = 100 * mis_val / len(df) # Percentage of missing values
+        mis_val_dtype = df.dtypes # dtype of missing values
+        mis_val_table = pd.concat([mis_val, mis_val_percent, mis_val_dtype], axis=1) # Make a table with the results
+        mis_val_table_ren_columns = mis_val_table.rename(
+        columns = {0 : 'Missing Values', 1 : '% of Total Values', 2: 'Dtype'}) # Rename the columns
+        mis_val_table_ren_columns = mis_val_table_ren_columns[
+            mis_val_table_ren_columns.iloc[:,0] != 0].sort_values(
+        '% of Total Values', ascending=False).round(2) # Sort the table by percentage of missing descending and remove columns with no missing values
+
+        print ("Your selected dataframe has " + str(df.shape[1]) + " columns.\n"
+            "There are " + str(mis_val_table_ren_columns.shape[0]) +
+            " columns that have missing values.")
+
+        if mis_val_table_ren_columns.shape[0] == 0:
+            return
+
+        return mis_val_table_ren_columns # Return the dataframe with missing information
         
     def handling_missing_quantitative_data_with_mean(self, df : pd.DataFrame, method = 'mean'):
         numeric_data =  ['int16', 'int32', 'int64',
@@ -112,27 +130,20 @@ class Data_Preprocessing(self):
             return self.df
 
     def handle_missing_categorical_data_with(self, df: pd.DataFrame, method="ffill"):
-
         numeric_data = ['int16', 'int32', 'int64',
                         'float16', 'float32', 'float64']
-
+        
         all_cols = self.df.columns.to_list()
-        num_cols = [i for i in all_cols if not self.df[i].dtypes in numeric_data]
+        num_cols = [i for i in all_cols if not self.df[i].dtypes in numeric_data]     
         
         if method == "ffill":
-
             for col in num_cols:
                 self.df[col] = self.df[col].fillna(method='ffill')
-
             return self.df
-
         elif method == "bfill":
-
             for col in num_cols:
                 self.df[col] = self.df[col].fillna(method='bfill')
-
             return self.df
         else:
             print("Method unknown")
             return self.df
-
