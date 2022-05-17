@@ -8,7 +8,7 @@ data = pd.read_csv('data/Tellco-Data-Source.csv')
 
 class Data_Preprocessing:
 
-    def __init__(self, df : pd.DatFrame) -> None: 
+    def __init__(self, df : pd.DataFrame) -> None: 
         self.df = df
 
 ################################################################################################################
