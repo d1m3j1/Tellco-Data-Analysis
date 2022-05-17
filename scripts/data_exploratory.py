@@ -44,7 +44,6 @@ class Data_Preprocessing:
             print('There are no duplicates')
         else: 
             print(f'There are {count} numbers of duplicates')
-        return self.df
 
     def convert_to_numbers(self) -> pd.DataFrame:
         self.df = self.df.apply(lambda x : pd.to_numeric(x, errors = 'coerce'))
@@ -52,13 +51,15 @@ class Data_Preprocessing:
     
     def convertByteMB(self, col1) -> pd.DataFrame:
         megabyte = 1*10e+5
-        try:
-            for col in col1: 
-                self.df[col] = self.df[col] / megabyte
-                self.df.rename(columns = {col : f'{col[:-7]}(Megabyte)'}, inplace = True)
-            print('Byte conversion completed')
-        except Exception as err: 
-            print(f'Error encountered "{err}"')
+        # try:
+        #     for col in col1: 
+        #         self.df[col] = self.df[col] / megabyte
+        #         self.df.rename(columns = {col : f'{col[:-7]}(Megabyte)'}, inplace = True)
+        #     print('Byte conversion completed')
+        # except Exception as err: 
+        #     print(f'Error encountered "{err}"')
+        megabyte_col = self.df[col1] / megabyte
+        return megabyte_col
 
 ################################################################################################################
 # Missing Data Manuipulation Script
