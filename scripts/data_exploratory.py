@@ -14,6 +14,7 @@ class Data_Preprocessing:
 ################################################################################################################
 # Data Information Script
 ################################################################################################################
+
     def show_datatypes(self) -> pd.DataFrame:
         return self.df.dtypes
 
@@ -24,13 +25,15 @@ class Data_Preprocessing:
         return self.df.corr()
     
     def show_data_desc(self) -> pd.DataFrame:
-        self.df = self.df.describe()
+        return self.df.describe()
     
     def preprocess_view_na(self) -> pd.DataFrame:
-        self.df = self.df.isna().sum()
+        return self.df.isna().sum()
+
 ################################################################################################################
 # Data Cleaning Script
 ################################################################################################################
+
     def convert_to_datetime(self, cols) -> pd.DataFrame:
         self.df = pd.to_datetime(seld.df[cols])
         return self.df
