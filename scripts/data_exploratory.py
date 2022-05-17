@@ -76,7 +76,7 @@ class Data_Preprocessing(self):
         total_rows = self.df.shape[0]
         print(f'The dataset has {round(((missing_rows / total_rows) * 100 ), 2)}% of missing values')
 
-    def drop_col_with_nul_values(self, threshold = 30) -> pd:DataFrame:
+    def drop_col_with_nul_values(self, threshold = 30) -> pd.DataFrame:
         null_present_df = pd.DataFrame(columns =['column', 'null_precent'])
         columns  = self.df.columns.values.tolist()
 
@@ -89,7 +89,7 @@ class Data_Preprocessing(self):
 
         self.df = self.df.dropna(subset=columns_subset)
         return self.df         
-    def missing_values_table(df):
+    def missing_values_table(df) ->pd.DataFrame:
         mis_val = df.isnull().sum()  # Total missing values
         mis_val_percent = 100 * mis_val / len(df) # Percentage of missing values
         mis_val_dtype = df.dtypes # dtype of missing values
