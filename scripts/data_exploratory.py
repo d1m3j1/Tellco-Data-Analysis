@@ -54,12 +54,12 @@ class Data_Preprocessing(self):
     def convertByteMB(self, col1) -> pd.DataFrame:
         megabyte = 1*10e+5
         try:
-        for col in col1: 
-            self.df[col] = self.df[col] / megabyte
-            self.df.rename(columns = {col : f'{col[:-7]}(Megabyte)'}, inplace = True)
-        print('Byte conversion completed')
+            for col in col1: 
+                self.df[col] = self.df[col] / megabyte
+                self.df.rename(columns = {col : f'{col[:-7]}(Megabyte)'}, inplace = True)
+            print('Byte conversion completed')
         except Exception as err: 
-        print(f'Error encountered "{err}"')
+            print(f'Error encountered "{err}"')
 
 ################################################################################################################
 # Missing Data Manuipulation Script
