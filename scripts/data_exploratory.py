@@ -35,10 +35,10 @@ class Data_Preprocessing:
         return self.df
     
     def drop_duplicates(self) -> pd.DataFrame:
-        old = df.shape[0]
+        old = self.df.shape[0]
         dropped = self.df[self.df.duplicated()].index
         self.df.drop(index = dropped, inplace = True)
-        new = df.shape[0]
+        new = self.df.shape[0]
         count =  new - old
         if count == 0:
             print('There are no duplicates')
