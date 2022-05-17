@@ -2,10 +2,6 @@ import numpy as np
 import pandas as pd 
 import os, sys
 
-sys.path.append(os.path.abspath(os.path.join('../')))
-
-data = pd.read_csv('data/Tellco-Data-Source.csv')
-
 class Data_Preprocessing:
 
     def __init__(self, df : pd.DataFrame) -> None: 
