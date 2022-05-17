@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join('../')))
 
 data = pd.read_csv('data/Tellco-Data-Source.csv')
 
-class Data_Preprocessing(self):
+class Data_Preprocessing:
 
     def __init__(self, df : pd.DatFrame) -> None: 
         self.df = df

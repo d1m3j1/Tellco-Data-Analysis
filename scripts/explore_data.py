@@ -1,7 +1,7 @@
 import numpy as np 
 import pandas as pd 
 
-class ExploreTelcomData(self):
+class ExploreTelcomData:
 
     def __init__(self, df):
         self.df = df
