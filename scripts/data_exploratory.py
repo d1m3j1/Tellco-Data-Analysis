@@ -35,7 +35,7 @@ class Data_Preprocessing:
 ################################################################################################################
 
     def convert_to_datetime(self, cols) -> pd.DataFrame:
-        self.df = pd.to_datetime(seld.df[cols])
+        self.df = pd.to_datetime(self.df[cols])
         return self.df
     
     def drop_duplicates(self) -> pd.DataFrame:
