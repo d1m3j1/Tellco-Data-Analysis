@@ -33,9 +33,14 @@ class Data_Preprocessing:
 
     def convert_to_datetime(self) -> pd.DataFrame:
         self.df['Start'] = pd.to_datetime(self.df['Start'], errors = 'coerce')
-        self.df['Start'] = self.df['Start'].apply(lambda x: x.strftime('%Y-%m-%d'))
         self.df['End'] = pd.to_datetime(self.df['End'], errors = 'coerce')
-        self.df['End'] = self.df['End'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        u = self.df.select_dtypes(include = ['datetime'])
+        self.df[u.columns] = u.fillna(method = 'ffill')        
+        try: 
+          self.df['Start'] = self.df['Start'].apply(lambda x: x.strftime('%Y-%m-%d'))
+          self.df['End'] = self.df['End'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        except ValueError as ve: 
+          pass
         return self.df
     
     def drop_duplicates(self) -> pd.DataFrame:
